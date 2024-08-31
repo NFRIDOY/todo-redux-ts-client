@@ -37,9 +37,9 @@ export const todoSlice = createSlice({
             // state.value += action.payload;
             state.value.push(action.payload);
         },
-        removeLast: (state, action: PayloadAction<ITodo>) => {
+        removeLast: (state) => {
             // state.value += action.payload;
-            state.value.push(action.payload);
+            state.value.pop();
         },
     },
 });

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { add, ITodo } from "../../../redux/features/todo/todoSlice";
+import { add, ITodo, removeLast } from "../../../redux/features/todo/todoSlice";
 import AddTodoForm from "./AddTodoForm";
 
 const TodoContainer = () => {
@@ -28,7 +28,7 @@ const TodoContainer = () => {
     return (
         <div>
             {/* <AddTodoForm /> */}
-            <div className="login-box">
+            <div className="login-box todoBox">
                 <h2>Login</h2>
                 <form onSubmit={handleSubmitTodo}>
                     <div className="user-box">
@@ -57,7 +57,9 @@ const TodoContainer = () => {
                 }>
                 Add Random Todo
             </button>
-            
+            <button onClick={() => dispatch(removeLast())}>
+                Remove Last Todo
+            </button>
             {todos?.length === 0 ? (
                 <h2>No Todos</h2>
             ) : (
