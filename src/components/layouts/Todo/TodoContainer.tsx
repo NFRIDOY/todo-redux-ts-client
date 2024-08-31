@@ -18,12 +18,12 @@ const TodoContainer = () => {
             details: detailsTodo,
         };
 
-        console.log(todoObj);
         // add todo in the redux store
         dispatch(add(todoObj));
         // TODO: send todo to the server or
         // USE: RTK Query
     };
+    console.log(todos);
 
     return (
         <div>

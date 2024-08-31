@@ -1,20 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { titleToID } from "../../../utils/functions";
 
 export type TPriority = "HIGH" | "MEDIUM" | "LOW";
 export type TStatus = "PENDING" | "DOING" | "DONE";
 export interface ITodo {
+    idTodo?: string;
     title: string;
     details: string;
     isDeleted?: boolean;
 }
 // export interface Todo {
-//     title: string;
-//     author: string;
-//     details: string;
-//     status: TStatus;
-//     date: string;
-//     priority: TPriority;
+    //     title: string;
+    //     author: string;
+    //     details: string;
+    //     status: TStatus;
+    //     date: string;
+    //     priority: TPriority;
+    // isDeleted?: boolean;
 // }
 export interface ITodoState {
     value: ITodo[];
@@ -35,7 +38,12 @@ export const todoSlice = createSlice({
     reducers: {
         add: (state, action: PayloadAction<ITodo>) => {
             // state.value += action.payload;
-            state.value.push(action.payload);
+            const todo = action.payload;
+            state.value.push({...todo, idTodo: titleToID(todo.title)});
+        },
+        remove: (state, action: PayloadAction<string>) => {
+            // state.value += action.payload;
+            const id = action.payload
         },
         removeLast: (state) => {
             // state.value += action.payload;
