@@ -44,6 +44,11 @@ export const todoSlice = createSlice({
         remove: (state, action: PayloadAction<string>) => {
             // state.value += action.payload;
             const id = action.payload
+            console.log(id);
+            const todos = state.value;
+            const findTodo = todos.filter((todo) => todo.idTodo !== id);
+            console.log(findTodo?.length)
+            state.value = findTodo;
         },
         removeLast: (state) => {
             // state.value += action.payload;
@@ -53,6 +58,6 @@ export const todoSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { add, removeLast } = todoSlice.actions;
+export const { add, remove, removeLast } = todoSlice.actions;
 
 export default todoSlice.reducer;

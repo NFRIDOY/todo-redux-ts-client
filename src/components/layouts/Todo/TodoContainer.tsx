@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { add, ITodo, removeLast } from "../../../redux/features/todo/todoSlice";
+import { add, ITodo, remove, removeLast } from "../../../redux/features/todo/todoSlice";
 import AddTodoForm from "./AddTodoForm";
 
 const TodoContainer = () => {
@@ -64,13 +64,13 @@ const TodoContainer = () => {
                 <h2>No Todos</h2>
             ) : (
                 todos?.map((todo) => (
-                    <>
+                    <div key={todo?.idTodo}>
                         <div className="todoBox">
                             <h2>{todo.title}</h2>
                             <p>{todo.details}</p>
-                            <button>Delete</button>
+                            <button onClick={() => dispatch(remove(todo?.idTodo))}>Delete</button>
                         </div>
-                    </>
+                    </div>
                 ))
             )}
         </div>
