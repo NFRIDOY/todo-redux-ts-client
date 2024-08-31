@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { titleToID } from "../../../utils/functions";
+import { ITodo } from "./todoSlice";
 
 export type TPriority = "HIGH" | "MEDIUM" | "LOW";
 export type TStatus = "PENDING" | "DOING" | "DONE";
@@ -11,13 +12,13 @@ export interface ITodo {
     isDeleted?: boolean;
 }
 // export interface Todo {
-    //     title: string;
-    //     author: string;
-    //     details: string;
-    //     status: TStatus;
-    //     date: string;
-    //     priority: TPriority;
-    // isDeleted?: boolean;
+//     title: string;
+//     author: string;
+//     details: string;
+//     status: TStatus;
+//     date: string;
+//     priority: TPriority;
+// isDeleted?: boolean;
 // }
 export interface ITodoState {
     value: ITodo[];
@@ -39,15 +40,22 @@ export const todoSlice = createSlice({
         add: (state, action: PayloadAction<ITodo>) => {
             // state.value += action.payload;
             const todo = action.payload;
-            state.value.push({...todo, idTodo: titleToID(todo.title)});
+            state.value.push({ ...todo, idTodo: titleToID(todo.title) });
+        },
+        deleteOne: (state, action: PayloadAction<string>) => {
+            // state.value += action.payload;
+            const id = action.payload;
+            const todos = state.value;
+            const findTodo = todos.find((todo) => todo.idTodo === id);
+            findTodo.isDeleted = true;
+            // const updatedTodo: ITodo = { ...findTodo, isDeleted: true }; // what is the problem
+            // state.value = [...state.value, updatedTodo];
         },
         remove: (state, action: PayloadAction<string>) => {
             // state.value += action.payload;
-            const id = action.payload
-            console.log(id);
+            const id = action.payload;
             const todos = state.value;
             const findTodo = todos.filter((todo) => todo.idTodo !== id);
-            console.log(findTodo?.length)
             state.value = findTodo;
         },
         removeLast: (state) => {
@@ -58,6 +66,6 @@ export const todoSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { add, remove, removeLast } = todoSlice.actions;
+export const { add, deleteOne, remove, removeLast } = todoSlice.actions;
 
 export default todoSlice.reducer;
