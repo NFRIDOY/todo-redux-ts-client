@@ -1,35 +1,49 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export interface TodoState {
-    value: number;
+export type TPriority = "HIGH" | "MEDIUM" | "LOW";
+export type TStatus = "PENDING" | "DOING" | "DONE";
+export interface ITodo {
+    title: string;
+    details: string;
+}
+// export interface Todo {
+//     title: string;
+//     author: string;
+//     details: string;
+//     status: TStatus;
+//     date: string;
+//     priority: TPriority;
+// }
+export interface ITodoState {
+    value: ITodo[];
 }
 
-const initialState: TodoState = {
-    value: 0,
+const initialState: ITodoState = {
+    value: [
+        {
+            title: "Interview",
+            details: "MERN",
+        },
+    ],
 };
 
 export const todoSlice = createSlice({
     name: "todo",
     initialState,
     reducers: {
-        increment: (state) => {
-            // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the Immer library,
-            // which detects changes to a "draft state" and produces a brand new
-            // immutable state based off those changes
-            state.value += 1;
+        add: (state, action: PayloadAction<ITodo>) => {
+            // state.value += action.payload;
+            state.value.push(action.payload);
         },
-        decrement: (state) => {
-            state.value -= 1;
-        },
-        incrementByAmount: (state, action: PayloadAction<number>) => {
-            state.value += action.payload;
+        removeLast: (state, action: PayloadAction<ITodo>) => {
+            // state.value += action.payload;
+            state.value.push(action.payload);
         },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = todoSlice.actions;
+export const { add, removeLast } = todoSlice.actions;
 
 export default todoSlice.reducer;
