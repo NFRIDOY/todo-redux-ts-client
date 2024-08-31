@@ -6,6 +6,7 @@ export type TStatus = "PENDING" | "DOING" | "DONE";
 export interface ITodo {
     title: string;
     details: string;
+    isDeleted?: boolean;
 }
 // export interface Todo {
 //     title: string;
@@ -21,10 +22,10 @@ export interface ITodoState {
 
 const initialState: ITodoState = {
     value: [
-        {
-            title: "Interview",
-            details: "MERN",
-        },
+        // {
+        //     title: "Interview",
+        //     details: "MERN",
+        // },
     ],
 };
 
